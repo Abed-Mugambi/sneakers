@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\Product\ProductCollection;
+use App\Http\Resources\ReviewResource;
 use App\Models\Product;
+use App\Models\Reviews;
 use Illuminate\Http\Request;
-use App\Http\Resources\Product\ProductResource;
 
-class ProductController extends Controller
+class ReviewController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Product $product)
     {
-        return  ProductCollection::collection(Product::paginate(20));
+        return ReviewResource::collection($product->reviews);
+      
     }
 
     /**
@@ -36,10 +37,9 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(string $id)
     {
-        // return $product = Product::find($id);
-        return new ProductResource($product);
+        //
     }
 
     /**
