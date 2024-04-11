@@ -39,3 +39,6 @@ Route::group([ 'prefix' => 'products'], function() {
 
 // route to create a new product
 Route::middleware('auth:sanctum')->post('/products', [ProductController::class, 'store']);
+
+// route to update a product
+Route::middleware('auth:sanctum')->put('/products/{product}', [ProductController::class, 'update']);
