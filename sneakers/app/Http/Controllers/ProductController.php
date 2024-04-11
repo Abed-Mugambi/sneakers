@@ -35,8 +35,8 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'detail'=> 'required|string|max:255',
             'price'=> 'required|numeric|min:0',
-            'stock'=> 'required|numeric|min:0|max:6',
-            'discount'=> 'required|numeric|min:0|max:2',
+            'stock'=> 'required|numeric|min:0|max:1000',
+            'discount'=> 'required|numeric|min:0|max:100',
             // Add validation rules for other fields as needed
         ]);
 
@@ -79,7 +79,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $product->update($request->all());
-        
+
         return response()->json(['product' => $product], 200);
 
 
@@ -89,8 +89,14 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product )
+    // waas password Murithi1234!
+    
     {
-        //
+        $product->delete();
+
+        // Product::find($id)->delete();
+
+        return response()->json(['message' => 'Product deleted successfully'], 200);
     }
 }

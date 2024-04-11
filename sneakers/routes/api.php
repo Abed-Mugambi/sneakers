@@ -42,3 +42,6 @@ Route::middleware('auth:sanctum')->post('/products', [ProductController::class, 
 
 // route to update a product
 Route::middleware('auth:sanctum')->put('/products/{product}', [ProductController::class, 'update']);
+
+// route to delete a product
+Route::middleware('auth:sanctum')->delete('/products/{product}', [ProductController::class, 'destroy']);
