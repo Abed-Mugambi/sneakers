@@ -30,7 +30,30 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate the request data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'detail'=> 'required|string|max:255',
+            'price'=> 'required|numeric|min:0',
+            'stock'=> 'required|numeric|min:0|max:6',
+            'discount'=> 'required|numeric|min:0|max:2',
+            // Add validation rules for other fields as needed
+        ]);
+
+        // Create a new product
+        $product = Product::create([
+            'name' => $request->name,
+            'detail' => $request->detail,
+
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'discount' => $request->discount,
+
+            // Set other fields as needed
+        ]);
+
+        // Return a JSON response with the created product
+        return response()->json(['product' => $product], 201);
     }
 
     /**

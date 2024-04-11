@@ -2,8 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +21,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// route to register and login using sanctum
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::post('/login', [AuthController::class, 'login']);
+
+
+
+// route to get all products
 Route::apiResource('/products', ProductController::class);
 
 Route::group([ 'prefix' => 'products'], function() {
     Route::apiResource('/{product}/reviews', ReviewController::class);
 });
+
+
+
+// route to create a new product
+Route::middleware('auth:sanctum')->post('/products', [ProductController::class, 'store']);
