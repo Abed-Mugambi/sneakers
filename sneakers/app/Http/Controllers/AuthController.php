@@ -25,7 +25,7 @@ class AuthController extends Controller
 
         ]);
 
-        return response()->json($user);
+        return response()->json($user, 200);
     }
 
     /**
@@ -41,7 +41,8 @@ class AuthController extends Controller
         ]);
 
         $credentials = request(['email', 'password']);
-        if (!auth()->attempt($credentials)) {
+
+        if ( !auth()->attempt($credentials)) {
             return response()->json([
                 'message' => 'the given data was invalid',
                 'errors' => [
@@ -50,15 +51,22 @@ class AuthController extends Controller
                     ],
                 ]
             ], status:422);
-        }
+        } else{
 
-        $user = User::where('email', $request->email)->first();
-        $authToken = $user->createToken('auth-token')->plainTextToken;
+                        $user = User::where('email', $request->email)->first();
+                    $authToken = $user->createToken('auth-token')->plainTextToken;
 
-        return response()->json([
-            'access_token' => $authToken,
+                    return response()->json(
+                        [
+                        'access_token' => $authToken,
 
-        ]);
+                    ]
+                );
+
+          }
+
+        
+
     }
 
     /**
