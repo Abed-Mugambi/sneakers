@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return  ProductCollection::collection(Product::paginate(20));
+        return  ProductCollection::collection(Product::paginate(60));
     }
 
     /**
@@ -31,16 +31,16 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         // Validate the request data
-        $request->validate( 
+        $request->validate(
             [
-            'name' => 'required|string|max:255',
-            'detail'=> 'required|string|max:255',
-            'price'=> 'required|numeric|min:0',
-            'stock'=> 'required|numeric|min:0|max:1000',
-            'discount'=> 'required|numeric|min:0|max:100',
-            // Add validation rules for other fields as needed
-        ]
-    );
+                'name' => 'required|string|max:255',
+                'detail' => 'required|string|max:255',
+                'price' => 'required|numeric|min:0',
+                'stock' => 'required|numeric|min:0|max:1000',
+                'discount' => 'required|numeric|min:0|max:100',
+                // Add validation rules for other fields as needed
+            ]
+        );
 
         // Create a new product
         $product = Product::create([
@@ -82,23 +82,20 @@ class ProductController extends Controller
     {
         $product->update($request->all());
 
-        return response()->json( ['product' => $product] , 200);
-
-
-        
+        return response()->json(['product' => $product], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product )
+    public function destroy(Product $product)
     // waas password Murithi1234!
-    
+
     {
         $product->delete();
 
         // Product::find($id)->delete();
 
-        return response()->json( ['message' => 'Product deleted successfully'], 200);
+        return response()->json(['message' => 'Product deleted successfully'], 200);
     }
 }
