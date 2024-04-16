@@ -10,7 +10,7 @@
 
     <div class="card-header">
         
-        <!-- <h4>
+        <h4>
             Products
             <RouterLink to="/products/create"
                 class="btn btn-primary float-end">
@@ -18,7 +18,7 @@
 
             </RouterLink>
 
-        </h4> -->
+        </h4>
     </div>
 
         <div class="card-body">
@@ -27,7 +27,12 @@
                           
                     <div v-for="(product, index) in this.products" :key="index" class="product">
 
-                        <div class="img"></div>
+                        
+                        <div class="img">
+                            <img :src="imageUrl" alt="Product Image">
+
+
+                        </div>
                         <!-- <div>ID: {{ product.id }}</div> -->
                         <div>Name: {{ product.name }}</div>
                         <div>Description: {{ product.description }}</div>
@@ -59,23 +64,20 @@
 
 <script>
 
-
-
 import axios from 'axios';
-
 
 export default  {
     name: 'products',
     data(){
         return {
-            products: []
-        }
+            products: [],
+            imageUrl: ''
+        };
     },
 
     mounted(){
         this.getProducts();
-
-
+        this.getImage();
     },
 
     methods: {
@@ -86,8 +88,23 @@ export default  {
 
             console.log(this.products)
           });
-        }
+        },
+
+
+        // image
+        getImage() {
+        axios.get(`/products/{product}/image`) // Adjust the URL and product ID as needed
+      .then(response => {
+        // Set the image URL using base64 encoding
+        this.imageUrl = 'data:image/jpeg;base64,' + btoa(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching image:', error);
+      });
+    }
     },
+
+  
 }
 </script>
 
@@ -104,7 +121,10 @@ export default  {
         padding: 10px; /* Add padding for better spacing */
         margin-bottom: 10px; /* Add margin between card-body and card-footer */
         display: flex;
-        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        /* flex-direction: row; */
          /* Set a maximum height */
     overflow-y: auto; /* Enable vertical scrolling */
     }

@@ -43,7 +43,7 @@
     
                                 </RouterLink> -->
     
-                                <button @click="addToCart(product.id)" 
+                                <button @click="addToCart()" 
                                 class="btn btn-success">ADD TO CART</button>
     
                             </div>
@@ -86,7 +86,12 @@
     
                 console.log(this.products)
               });
-            }
+            },
+
+            addToCart() {
+                console.log("add to cart")
+
+            },
         },
     }
     </script>
