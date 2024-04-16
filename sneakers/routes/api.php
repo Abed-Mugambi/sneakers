@@ -31,17 +31,20 @@ Route::post('/login', [AuthController::class, 'login']);
 // route to get all products
 Route::apiResource('/products', ProductController::class);
 
-Route::group([ 'prefix' => 'products'], function() {
+Route::group(['prefix' => 'products'], function () {
     Route::apiResource('/{product}/reviews', ReviewController::class);
 });
 
 
 
 // route to create a new product
-Route::middleware('auth:sanctum')->post('/products', [ProductController::class, 'store']);
+Route::middleware('auth:sanctum')->post('/products/create', [ProductController::class, 'store']);
 
 // route to update a product
 Route::middleware('auth:sanctum')->put('/products/{product}', [ProductController::class, 'update']);
 
 // route to delete a product
 Route::middleware('auth:sanctum')->delete('/products/{product}', [ProductController::class, 'destroy']);
+
+// route to get an image
+Route::get('/products/{product}/image', [ProductController::class, 'getImage']);

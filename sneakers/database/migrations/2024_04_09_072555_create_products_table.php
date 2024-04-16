@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('stock');
             $table->integer('discount');
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }

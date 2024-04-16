@@ -37,7 +37,8 @@ class ProductController extends Controller
                 'detail' => 'required|string|max:255',
                 'price' => 'required|numeric|min:0',
                 'stock' => 'required|numeric|min:0|max:1000',
-                'discount' => 'required|numeric|min:0|max:100',
+                'discount' => 'required|numeric|min:0|max:1000',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 // Add validation rules for other fields as needed
             ]
         );
@@ -50,6 +51,7 @@ class ProductController extends Controller
             'price' => $request->price,
             'stock' => $request->stock,
             'discount' => $request->discount,
+            'image' => $request->image,
 
             // Set other fields as needed
         ]);
@@ -57,6 +59,30 @@ class ProductController extends Controller
         // Return a JSON response with the created product
         return response()->json(['product' => $product], 201);
     }
+
+    // get product image
+    public function getImage($productId)
+    {
+        $product = Product::findOrFail($productId);
+        $imagePath = $product->image_path; // Assuming the image path is stored in the database
+
+        // Load the image file from storage
+        $imageData = Storage::get($imagePath);
+
+        // return the image data as a response
+        return response($imageData)->header('Content-Type', 'image/jpeg'); // Adjust Content-Type as needed
+
+        }
+    // {
+    //     $product = Product::findOrFail($productId);
+    //     $imagePath = $product->image_path; // Assuming the image path is stored in the database
+
+    //     // Load the image file from storage
+    //     $imageData = Storage::get($imagePath);
+
+    //     // Return the image data as a response
+    //     return response($imageData)->header('Content-Type', 'image/jpeg'); // Adjust Content-Type as needed
+    // }
 
     /**
      * Display the specified resource.
@@ -84,6 +110,8 @@ class ProductController extends Controller
 
         return response()->json(['product' => $product], 200);
     }
+
+
 
     /**
      * Remove the specified resource from storage.

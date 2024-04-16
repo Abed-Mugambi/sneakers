@@ -10,9 +10,11 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 
-    'detail', 'price',
-     'stock', 'discount'
+    protected $fillable = [
+        'name',
+        'detail', 'price',
+        'stock', 'discount',
+        'image'
     ];
 
 
@@ -20,8 +22,4 @@ class Product extends Model
     {
         return $this->hasMany(Reviews::class);
     }
-
-
-
-
 }
