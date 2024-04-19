@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\Product\ProductCollection;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Resources\Product\ProductResource;
+use App\Http\Resources\Product\ProductCollection;
 
 class ProductController extends Controller
 {
@@ -13,7 +14,8 @@ class ProductController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+    { 
+        Log::info('GET /products', ['products' => Product::all()]);
         return  ProductCollection::collection(Product::paginate(60));
     }
 
@@ -59,6 +61,8 @@ class ProductController extends Controller
         // Return a JSON response with the created product
         return response()->json(['product' => $product], 201);
     }
+
+    
 
     // get product image
     public function getImage($productId)

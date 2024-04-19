@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProductController;
 
@@ -48,3 +49,12 @@ Route::middleware('auth:sanctum')->delete('/products/{product}', [ProductControl
 
 // route to get an image
 Route::get('/products/{product}/image', [ProductController::class, 'getImage']);
+
+// route to add product to cart
+// Route::middleware('auth:sanctum')->post('/cart/{productId}', [CartController::class, 'cart']);
+Route::post('/cart/{productId}', [CartController::class, 'cart']);
+
+// route to get products from cart
+Route::get('/api/products/cart', [CartController::class, 'getProductsFromCart']);
+
+// route to add to checkout

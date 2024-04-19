@@ -26,7 +26,8 @@ class ProductResource extends JsonResource
             /$this->reviews->count(),2): "No rating yet",
             'href'=> [
                 'reviews'=> route('reviews.index', $this->id)
-            ]
+            ],
+            'image' => $this->image
 
         ];
     }
