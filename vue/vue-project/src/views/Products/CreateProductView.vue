@@ -103,6 +103,7 @@
     const file = event.target.files[0];
     this.formData.image = file;
   },
+
   submitForm() {
     const formData = new FormData();
     for (let key in this.formData) {

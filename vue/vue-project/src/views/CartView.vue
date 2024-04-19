@@ -6,14 +6,14 @@
 
         <div class="card-header">
 
-            <h4>
+            <!-- <h4>
                 Products
                 <RouterLink to="/products/create" class="btn btn-primary float-end">
                     Add Product
 
                 </RouterLink>
 
-            </h4>
+            </h4> -->
         </div>
 
         <div class="card-body">
@@ -51,9 +51,9 @@
                             <!-- go to cart page , pull details of that item-->
                             <!-- edit qty -->
                             <!-- go to checkout -->
-                    <RouterLink to="{name: 'cart', params:{productId: productId } }">
-                        <button @click="addToCart(product.id)" class="btn btn-success">
-                            ADD TO CART
+                    <RouterLink to="/cart">
+                        <button @click="addToCheckout(product.id)" class="btn btn-success">
+                            PROCEED TO CHECKOUT
                         </button>
 
                     </RouterLink>
@@ -73,7 +73,6 @@
 <script>
 
 import axios from 'axios';
-// import { router } from '@/router';
 
 export default {
     name: 'products',
@@ -85,15 +84,18 @@ export default {
     },
 
     mounted() {
-        this.getProducts();
+        this.getProductsFromCart();
+        this.addToCheckout();
+
+        // image code
         this.getImage();
         this.getBase64Image();
     },
 
     methods: {
-        getProducts() {
+        getProductsFromCart() {
 
-            axios.get('http://localhost:8000/api/products').then(res => {
+            axios.get('http://localhost:8000/api/products/cart').then(res => {
 
 
                 this.products = res.data.data
@@ -102,7 +104,7 @@ export default {
             });
         },
 
-        addToCart(productId,productName, details, price) {
+        addToCheckout(productId,productName, details, price) {
             // console.log("add to cart")
             console.log(productId)
             // console.log(product.id);
