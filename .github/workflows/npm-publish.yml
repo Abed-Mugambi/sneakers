@@ -4,7 +4,9 @@
 name: Node.js Package
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main # or the branch you want to trigger the workflow on
 
 jobs:
   build:
