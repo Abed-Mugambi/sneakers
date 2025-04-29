@@ -51,7 +51,7 @@
                             <!-- go to cart page , pull details of that item-->
                             <!-- edit qty -->
                             <!-- go to checkout -->
-                    <RouterLink to="{name: 'cart', params:{productId: productId } }">
+                    <RouterLink :to="{ name: 'cart', params:{ id: product.id } }">
                         <button @click="addToCart(product.id)" class="btn btn-success">
                             ADD TO CART
                         </button>
@@ -103,9 +103,9 @@ export default {
         },
 
         addToCart(productId,productName, details, price) {
-            // console.log("add to cart")
+             console.log("add to cart")
             console.log(productId)
-            // console.log(product.id);
+             console.log(product.id);
             // console.log(res.data.data);
 
             // create cart column -> id, name, desc, qty, price, img || run migrations
@@ -117,9 +117,15 @@ export default {
             // edit that div to add checkout button => checkout page
             // edit the div to have wishlist icon, edit qty
 
+            this.$router.push({
+            name: 'ProductDetail',
+            params: { id: productId },
+            props: { name: productName, desc: productDesc }
+        });
 
 
-            axios.post('http://localhost:8000/api/cart/{productId}' , {
+
+            axios.post(`http://localhost:8000/api/cart/{ productId }` , {
                 // what we are posting
                 productId: productId,
                 name: productName,

@@ -52,7 +52,7 @@
                             <!-- edit qty -->
                             <!-- go to checkout -->
                     <RouterLink to="/cart">
-                        <button @click="addToCheckout(product.id)" class="btn btn-success">
+                        <button @click="addToCheckout(product.id, product.details, product.price   )" class="btn btn-success">
                             PROCEED TO CHECKOUT
                         </button>
 
@@ -79,7 +79,8 @@ export default {
     data() {
         return {
             products: [],
-            imageUrl: ''
+            imageUrl: '',
+            quantity: 1
         };
     },
 
@@ -121,12 +122,12 @@ export default {
 
 
 
-            axios.post('http://localhost:8000/api/cart/{productId}' , {
+            axios.post(`http://localhost:8000/api/cart/${ productId }` , {
                 // what we are posting
                 productId: productId,
                 name: productName,
                 details: details,
-                quantity: quantity,
+                quantity: this.quantity,
                 price: price,
                 // image:image
 
