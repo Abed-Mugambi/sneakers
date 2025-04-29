@@ -118,7 +118,7 @@ export default {
             // edit the div to have wishlist icon, edit qty
 
             this.$router.push({
-            name: 'ProductDetailss',
+            name: 'ProductDetail',
             params: { id: productId },
             props: { name: productName, desc: productDesc }
         });
