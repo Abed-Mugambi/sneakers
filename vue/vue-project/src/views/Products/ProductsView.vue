@@ -103,9 +103,9 @@ export default {
         },
 
         addToCart(productId,productName, details, price) {
-             console.log("add to cart")
+           //  console.log("add to cart")
             console.log(productId)
-             console.log(product.id);
+            // console.log(product.id);
             // console.log(res.data.data);
 
             // create cart column -> id, name, desc, qty, price, img || run migrations
@@ -118,7 +118,7 @@ export default {
             // edit the div to have wishlist icon, edit qty
 
             this.$router.push({
-            name: 'ProductDetail',
+            name: 'ProductDetails',
             params: { id: productId },
             props: { name: productName, desc: productDesc }
         });
