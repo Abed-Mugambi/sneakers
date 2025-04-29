@@ -6,7 +6,7 @@ name: Node.js Package
 on:
   push:
     branches:
-      - main # or the branch you want to trigger the workflow on
+      - main
 
 jobs:
   build:
@@ -16,8 +16,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: cd vue && npm ci
-      - run: cd vue && npm test
+      - name: Check for package.json
+        run: |
+          if [ ! -f vue/vue-project/package.json ]; then
+            echo "Error: vue/vue-project/package.json not found!"
+            exit 1
+          fi
+      - run: cd vue/vue-project && npm ci
+      - run: cd vue/vue-project && npm test
 
   publish-npm:
     needs: build
@@ -28,7 +34,7 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
-      - run: cd vue && npm ci
-      - run: cd vue && npm publish
+      - run: cd vue/vue-project && npm ci
+      - run: cd vue/vue-project && npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
